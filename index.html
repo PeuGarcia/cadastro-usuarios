@@ -8,8 +8,48 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+    
+        <h1>Cadastro de Usuários</h1>
 
-    <h1>Cadastro de Usuários</h1>
+        <form id="formCadastro">
+
+            <div class="campo">
+                <label for="nome">Nome Completo</label> 
+                <input type="text" id="nome" required>
+            </div>  
+            <div class="campo">
+                <label for="email">E-mail</label> 
+                <input type="email" id="email" required>
+            </div>
+            <div class="campo">
+                <label for="CPF">CPF</label>
+                <input type="text" id="CPF">
+            </div>
+            <div class="campo">
+                <label for="CEP">CEP</label>
+                <input type="text" id="CEP" required>
+            </div>
+            <div class="campo">
+                <label for="rua">Rua</label>
+                <input type="text" id="rua">
+            </div>
+            <div class="campo">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro">
+            </div>
+            <div class="campo">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade">
+            </div>
+            <div class="campo">
+                <label for="estado">Estado</label>
+                <input type="text" id="estado">
+            </div>
+
+            <button type="submit">Cadastrar</button>
+
+        </form>
 
     <script src="script.js"></script>
 </body>
