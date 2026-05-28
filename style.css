@@ -59,3 +59,43 @@ button {
 button:hover {
     background-color:#0056b3;
 }
+
+h2 {
+    margin-top:30px;
+    margin-bottom: 15px;
+}
+
+.usuario-card {
+    background-color:#f9f9f9;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.usuario-card p {
+    margin-bottom: 8px;
+}
+
+.usuario-card button {
+    margin-top:10px;
+    background-color:#28a745;
+}
+
+.usuario-card button:hover {
+    background-color:#1e7e34;
+}
+
+#botaoUsuarios {
+    margin-top:20px;
+    margin-bottom:20px;
+    background-color:#28a745;
+}
+
+#botaoUsuarios:hover {
+    background-color: #1e7e34;
+}
+
+#usuariosContainer {
+    display:none;
+}
