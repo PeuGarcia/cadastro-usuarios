@@ -6,7 +6,7 @@
 
 body {
     font-family:Arial, sans-serif;
-    background-color:#f4f4f4;
+    background-color: white;
     
     display:flex;
     justify-content:center;
@@ -15,17 +15,16 @@ body {
 }
 
 .container {
-    background-color: white;
+    background-color: whitesmoke;
     padding:30px;
     width:400px;
     border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    box-shadow:0 0 10px black;
 }
 
 h1 {
     margin-bottom:20px;
     text-align:center;
-    color:#333;
 }
 
 .campo {

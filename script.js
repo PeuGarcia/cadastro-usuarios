@@ -13,6 +13,8 @@ const bairroInput = document.getElementById("bairro");
 const cidadeInput = document.getElementById("cidade");
 const estadoInput = document.getElementById("estado");
 
+let usuarioEditando = null;
+
 window.onload = carregarUsuarios;
 
 cepInput.addEventListener("blur",async function() {
@@ -60,12 +62,29 @@ formulario.addEventListener("submit", function(event) {
     };
 
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    usuarios.push(usuario);
+    const emailDigitado = usuario.email.toLowerCase();
+    const emailExistente = usuarios.some(function(usuarioSalvo, index) {
+        if (index === usuarioEditando) {
+            return false;
+        }
+        return usuarioSalvo.email.toLowerCase() === emailDigitado;
+    });
+    if (emailExistente) {
+        alert("Este e-mail já está sendo utilizado! Por favor, utilize outro e-mail para realizar o cadastro.");
+        return;
+    }
+
+    if (usuarioEditando !== null) {
+        usuarios[usuarioEditando] = usuario;
+        usuarioEditando = null;
+    } else {
+        usuarios.push(usuario);
+    }
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
     carregarUsuarios();
     formulario.reset();
     limparCampos();
-    alert("Usuário cadastrado com sucesso!");
+    alert("Operação realizada com sucesso!");
 });
 
 botaoUsuarios.addEventListener("click", function() {
@@ -90,6 +109,8 @@ function carregarUsuarios() {
             <p><strong>Email:</strong> ${usuario.email}</p>
             <p><strong>Cidade/Estado:</strong> ${usuario.cidade} - ${usuario.estado}</p>
             <button onclick="verDetalhes(${index})">Ver Detalhes</button>
+            <button onclick="editarUsuario(${index})">Editar</button>
+            <button onclick="excluirUsuario(${index})">Excluir</button>
         `;
         listaUsuarios.appendChild(card);
 
@@ -102,7 +123,32 @@ function verDetalhes(index) {
     alert(`Nome: ${usuario.nome}\nEmail: ${usuario.email}\nCPF: ${usuario.cpf}\nCEP: ${usuario.cep}\nRua: ${usuario.rua}\nBairro: ${usuario.bairro}\nCidade: ${usuario.cidade}\nEstado: ${usuario.estado}`);
 }
 
+function editarUsuario(index) {
+    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    const usuario = usuarios[index];
+    document.getElementById("nome").value = usuario.nome;
+    document.getElementById("email").value = usuario.email;
+    document.getElementById("cpf").value = usuario.cpf;
+    document.getElementById("cep").value = usuario.cep;
+    ruaInput.value = usuario.rua;
+    bairroInput.value = usuario.bairro;
+    cidadeInput.value = usuario.cidade;
+    estadoInput.value = usuario.estado;
+    usuarioEditando = index;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
+function excluirUsuario(index) {
+    const confirmar = confirm("Quer mesmo excluir este usuário?");
+    if(!confirmar){
+        return;
+    }
+    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    usuarios.splice(index, 1);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    carregarUsuarios();
+    alert("Usuário excluído com sucesso!");
+}
 
 function limparCampos() {
     ruaInput.value="";
