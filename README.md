@@ -46,8 +46,8 @@ cadastro-usuarios/
 ├── index.html
 ├── style.css
 ├── script.js
-|── README.md ```
-
+|── README.md 
+```
 
 ## API Utilizada
 ViaCEP: `https://viacep.com.br`
