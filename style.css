@@ -1,9 +1,12 @@
+
+/* Reset e Configurações globais. */
 * {
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+/* Layout da página principal. */
 body {
     font-family:Arial, sans-serif;
     background-color: white;
@@ -14,6 +17,7 @@ body {
     min-height:100vh;
 }
 
+/* Container principal. */
 .container {
     background-color: whitesmoke;
     padding:30px;
@@ -22,11 +26,18 @@ body {
     box-shadow:0 0 10px black;
 }
 
+/* Títulos */
 h1 {
     margin-bottom:20px;
     text-align:center;
 }
 
+h2 {
+    margin-top:30px;
+    margin-bottom: 15px;
+}
+
+/* Formulário de cadastro. */
 .campo {
     margin-bottom:15px;
     display:flex;
@@ -44,6 +55,7 @@ input {
     border-radius:5px;
 }
 
+/* Botões */
 button {
     width:100%;
     padding:12px;
@@ -59,11 +71,7 @@ button:hover {
     background-color:#0056b3;
 }
 
-h2 {
-    margin-top:30px;
-    margin-bottom: 15px;
-}
-
+/* Estilos para a lista de usuários. */
 .usuario-card {
     background-color:#f9f9f9;
     border:1px solid #ddd;
@@ -76,6 +84,7 @@ h2 {
     margin-bottom: 8px;
 }
 
+/* Botões dentro dos cartões de usuário. */
 .usuario-card button {
     margin-top:10px;
     background-color:#28a745;
@@ -85,6 +94,7 @@ h2 {
     background-color:#1e7e34;
 }
 
+/* Estilos para o botão de mostrar/ocultar usuários. */
 #botaoUsuarios {
     margin-top:20px;
     margin-bottom:20px;
@@ -95,6 +105,7 @@ h2 {
     background-color: #1e7e34;
 }
 
+/* Container da lista de usuários inicialmente oculto. Ativa quando o botão é clicado através do JavaScript. */
 #usuariosContainer {
     display:none;
 }
