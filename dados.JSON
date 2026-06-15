@@ -1,0 +1,16 @@
+{
+    "usuarios": [
+        {
+        "id": 1,
+        "nome": "João Silva",
+        "email": "joao.silva@example.com",
+        "cpf": "123.456.789-00",
+        "cep": "12345-678",
+        "rua": "Rua A",
+        "bairro": "Bairro B",
+        "cidade": "Cidade C",
+        "estado": "Estado D"
+        }
+
+    ]
+}

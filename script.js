@@ -10,8 +10,26 @@ const botaoUsuarios = document.getElementById("botaoUsuarios");
 //Container que envolve a lista de usuários cadastrados.
 const usuariosContainer = document.getElementById("usuariosContainer");
 
+
+const cpfInput = document.getElementById("cpf");
+cpfInput.addEventListener("input", function() {
+    let cpf = cpfInput.value.replace(/\D/g, "");
+    if (cpf.length > 11) {
+        cpf = cpf.substring(0, 11);
+    }
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    cpfInput.value = cpf;
+});
 //Campos de endereço que serão preenchidos automaticamente com base no CEP.
 const cepInput = document.getElementById("cep");
+    cepInput.addEventListener("input", function() {
+        let cep = cepInput.value.replace(/\D/g, "");
+        if (cep.length > 8) {
+            cep = cep.substring(0, 8);
+        }
+        cep = cep.replace(/(\d{5})(\d{3})/, "$1-$2");
+        cepInput.value = cep;
+    });
 const ruaInput = document.getElementById("rua");
 const bairroInput = document.getElementById("bairro");
 const cidadeInput = document.getElementById("cidade");
