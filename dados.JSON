@@ -10,6 +10,17 @@
         "bairro": "Bairro B",
         "cidade": "Cidade C",
         "estado": "Estado D"
+        },
+        {
+        "id": 2,
+        "nome": "Maria Oliveira",
+        "email": "maria.oliveira@example.com",
+        "cpf": "987.654.321-00",
+        "cep": "54321-876",
+        "rua": "Rua B",
+        "bairro": "Bairro C",
+        "cidade": "Cidade D",
+        "estado": "Estado E"
         }
 
     ]
