@@ -7,20 +7,31 @@
         "cpf": "123.456.789-00",
         "cep": "12345-678",
         "rua": "Rua A",
-        "bairro": "Bairro B",
-        "cidade": "Cidade C",
-        "estado": "Estado D"
+        "bairro": "Centro",
+        "cidade": "Salvador",
+        "estado": "BA"
         },
         {
         "id": 2,
-        "nome": "Maria Oliveira",
-        "email": "maria.oliveira@example.com",
+        "nome": "Raquel Carneiro",
+        "email": "raquel.carneiro@example.com",
         "cpf": "987.654.321-00",
         "cep": "54321-876",
-        "rua": "Rua B",
-        "bairro": "Bairro C",
-        "cidade": "Cidade D",
-        "estado": "Estado E"
+        "rua": "Guilhard Muniz",
+        "bairro": "Pituba",
+        "cidade": "Salvador",
+        "estado": "Bahia"
+        },
+        {
+            "id": 3,
+            "nome": "Pedro Garcia",
+            "email": "pedro.garcia@example.com",
+            "cpf": "859.009.755-25",
+            "cep": "40081-305",
+            "rua": "Largo da Vitória",
+            "bairro": "Vitória",
+            "cidade": "Salvador",
+            "estado": "Bahia"
         }
 
     ]

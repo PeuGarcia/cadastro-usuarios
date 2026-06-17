@@ -37,9 +37,10 @@ const estadoInput = document.getElementById("estado");
 
 // Variável para armazenar o índice do usuário que está sendo editado. Se for null, significa que estamos criando um novo usuário.
 let usuarioEditando = null;
+let usuarios = [];
 
 // Carrega os Usuários salvos ao iniciar a página.
-window.onload = carregarUsuarios;
+window.onload = carregarUsuariosJson;
 
 // Busca automaticamente os dados de endereço ao clicar fora do campo do CEP.
 cepInput.addEventListener("blur",async function() {
@@ -134,9 +135,18 @@ formulario.addEventListener("submit", function(event) {
         return;
     }
 
+    // Verifica se o CPF digitado já está sendo utilizado.
+    const cpfExistente = usuarios.some(function(usuarioSalvo, index) {
+        if (index === usuarioEditando) {
+            return false;
+        }
+        return usuarioSalvo.cpf.replace(/\D/g, "") === cpfLimpo;
+    });
+    if (cpfExistente) {
+        alert("Este CPF já está sendo utilizado! Por favor, utilize outro CPF para realizar o cadastro.");
+        return;
+    }
 
-    // Recupera usuários já cadastrados.
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     // Verifica se o email digitado já está sendo utilizado.
     const emailDigitado = usuario.email.toLowerCase();
@@ -160,7 +170,6 @@ formulario.addEventListener("submit", function(event) {
         usuarios.push(usuario);
     }
     // Salva a lista de usuários atualizada no localStorage e recarrega a exibição dos usuários.
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
     carregarUsuarios();
     formulario.reset();
     limparCampos();
@@ -179,10 +188,23 @@ botaoUsuarios.addEventListener("click", function() {
     }
 });
 
+async function carregarUsuariosJson() {
+    try {
+        const resposta = await fetch("dados.JSON");
+        const dados = await resposta.json();
+
+        usuarios = dados.usuarios;
+
+        carregarUsuarios();
+    } catch (error) {
+       console.error("Erro ao carregar os dados dos usuários!", error);
+    }
+}
+
+
 // Função que carrega todos os usuários cadastrados e os exibe na tela.
 function carregarUsuarios() {
     listaUsuarios.innerHTML = "";
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     usuarios.forEach(function(usuario, index) {
         const card = document.createElement("div");
         card.classList.add("usuario-card");
@@ -201,14 +223,12 @@ function carregarUsuarios() {
 
 // Função que exibe todos os detalhes do usuário selecionado.
 function verDetalhes(index) {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
     const usuario = usuarios[index];
     alert(`Nome: ${usuario.nome}\nEmail: ${usuario.email}\nCPF: ${usuario.cpf}\nCEP: ${usuario.cep}\nRua: ${usuario.rua}\nBairro: ${usuario.bairro}\nCidade: ${usuario.cidade}\nEstado: ${usuario.estado}`);
 }
 
 // Função que preenche o formulário com os dados do usuário selecionado para edição.
 function editarUsuario(index) {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
     const usuario = usuarios[index];
     document.getElementById("nome").value = usuario.nome;
     document.getElementById("email").value = usuario.email;
@@ -228,9 +248,7 @@ function excluirUsuario(index) {
     if(!confirmar){
         return;
     }
-    const usuarios = JSON.parse(localStorage.getItem("usuarios"));
     usuarios.splice(index, 1);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
     carregarUsuarios();
     alert("Usuário excluído com sucesso!");
 }
