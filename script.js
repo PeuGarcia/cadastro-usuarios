@@ -82,6 +82,7 @@ cepInput.addEventListener("blur",async function() {
 formulario.addEventListener("submit", function(event) {
     event.preventDefault();
     const usuario = {
+        id: usuarioEditando !== null ? usuarioEditando : Date.now(),
         nome: document.getElementById("nome").value,
         email: document.getElementById("email").value,
         cpf: document.getElementById("cpf").value,
@@ -164,7 +165,8 @@ formulario.addEventListener("submit", function(event) {
 
     // Atualiza o usuário existente ou adiciona um novo.
     if (usuarioEditando !== null) {
-        usuarios[usuarioEditando] = usuario;
+        const indice = usuarios.findIndex(usuario => usuario.id === usuarioEditando);
+        usuarios[indice] = usuario;
         usuarioEditando = null;
     } else {
         usuarios.push(usuario);
@@ -212,9 +214,9 @@ function carregarUsuarios() {
             <p><strong>Nome:</strong> ${usuario.nome}</p>
             <p><strong>Email:</strong> ${usuario.email}</p>
             <p><strong>Cidade/Estado:</strong> ${usuario.cidade} - ${usuario.estado}</p>
-            <button onclick="verDetalhes(${index})">Ver Detalhes</button>
-            <button onclick="editarUsuario(${index})">Editar</button>
-            <button onclick="excluirUsuario(${index})">Excluir</button>
+            <button onclick="verDetalhes(${usuario.id})">Ver Detalhes</button>
+            <button onclick="editarUsuario(${usuario.id})">Editar</button>
+            <button onclick="excluirUsuario(${usuario.id})">Excluir</button>
         `;
         listaUsuarios.appendChild(card);
 
@@ -222,14 +224,14 @@ function carregarUsuarios() {
 }
 
 // Função que exibe todos os detalhes do usuário selecionado.
-function verDetalhes(index) {
-    const usuario = usuarios[index];
+function verDetalhes(id) {
+    const usuario = usuarios.find(user => user.id === id);
     alert(`Nome: ${usuario.nome}\nEmail: ${usuario.email}\nCPF: ${usuario.cpf}\nCEP: ${usuario.cep}\nRua: ${usuario.rua}\nBairro: ${usuario.bairro}\nCidade: ${usuario.cidade}\nEstado: ${usuario.estado}`);
 }
 
 // Função que preenche o formulário com os dados do usuário selecionado para edição.
-function editarUsuario(index) {
-    const usuario = usuarios[index];
+function editarUsuario(id) {
+    const usuario = usuarios.find(user => user.id === id);
     document.getElementById("nome").value = usuario.nome;
     document.getElementById("email").value = usuario.email;
     document.getElementById("cpf").value = usuario.cpf;
@@ -238,17 +240,18 @@ function editarUsuario(index) {
     bairroInput.value = usuario.bairro;
     cidadeInput.value = usuario.cidade;
     estadoInput.value = usuario.estado;
-    usuarioEditando = index;
+    usuarioEditando = id;
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // Função que exclui o usuário selecionado após confirmação do usuário.
-function excluirUsuario(index) {
+function excluirUsuario(id) {
     const confirmar = confirm("Quer mesmo excluir este usuário?");
+
     if(!confirmar){
         return;
     }
-    usuarios.splice(index, 1);
+    usuarios = usuarios.filter(user => user.id !== id);
     carregarUsuarios();
     alert("Usuário excluído com sucesso!");
 }
