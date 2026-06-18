@@ -10,6 +10,9 @@ const botaoUsuarios = document.getElementById("botaoUsuarios");
 //Container que envolve a lista de usuários cadastrados.
 const usuariosContainer = document.getElementById("usuariosContainer");
 
+const botaoAbrirJson = document.getElementById("abrirJson");
+botaoAbrirJson.addEventListener("click", carregarArquivoJson);
+
 
 const cpfInput = document.getElementById("cpf");
 cpfInput.addEventListener("input", function() {
@@ -36,11 +39,9 @@ const cidadeInput = document.getElementById("cidade");
 const estadoInput = document.getElementById("estado");
 
 // Variável para armazenar o índice do usuário que está sendo editado. Se for null, significa que estamos criando um novo usuário.
+let arquivoJson = null;
 let usuarioEditando = null;
 let usuarios = [];
-
-// Carrega os Usuários salvos ao iniciar a página.
-window.onload = carregarUsuariosJson;
 
 // Busca automaticamente os dados de endereço ao clicar fora do campo do CEP.
 cepInput.addEventListener("blur",async function() {
@@ -79,7 +80,7 @@ cepInput.addEventListener("blur",async function() {
 });
 
 // Cadastro e edição de usuários, com validação de campos e verificação de email único.
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener("submit", async function(event) {
     event.preventDefault();
     const usuario = {
         id: usuarioEditando !== null ? usuarioEditando : Date.now(),
@@ -138,7 +139,7 @@ formulario.addEventListener("submit", function(event) {
 
     // Verifica se o CPF digitado já está sendo utilizado.
     const cpfExistente = usuarios.some(function(usuarioSalvo, index) {
-        if (index === usuarioEditando) {
+        if (usuarioSalvo.id === usuarioEditando) {
             return false;
         }
         return usuarioSalvo.cpf.replace(/\D/g, "") === cpfLimpo;
@@ -153,7 +154,7 @@ formulario.addEventListener("submit", function(event) {
     const emailDigitado = usuario.email.toLowerCase();
     const emailExistente = usuarios.some(function(usuarioSalvo, index) {
         // Permite que o usuário mantenha seu próprio email ao editar, mas impede que use um email de outro usuário.
-        if (index === usuarioEditando) {
+        if (usuarioSalvo.id === usuarioEditando) {
             return false;
         }
         return usuarioSalvo.email.toLowerCase() === emailDigitado;
@@ -167,11 +168,14 @@ formulario.addEventListener("submit", function(event) {
     if (usuarioEditando !== null) {
         const indice = usuarios.findIndex(usuario => usuario.id === usuarioEditando);
         usuarios[indice] = usuario;
+        await salvarJson();
         usuarioEditando = null;
     } else {
         usuarios.push(usuario);
+        await salvarJson();
+
     }
-    // Salva a lista de usuários atualizada no localStorage e recarrega a exibição dos usuários.
+    // Salva a lista de usuários atualizada e recarrega a exibição dos usuários.
     carregarUsuarios();
     formulario.reset();
     limparCampos();
@@ -189,20 +193,6 @@ botaoUsuarios.addEventListener("click", function() {
         botaoUsuarios.textContent = "Ver Usuários Cadastrados";
     }
 });
-
-async function carregarUsuariosJson() {
-    try {
-        const resposta = await fetch("dados.JSON");
-        const dados = await resposta.json();
-
-        usuarios = dados.usuarios;
-
-        carregarUsuarios();
-    } catch (error) {
-       console.error("Erro ao carregar os dados dos usuários!", error);
-    }
-}
-
 
 // Função que carrega todos os usuários cadastrados e os exibe na tela.
 function carregarUsuarios() {
@@ -245,15 +235,56 @@ function editarUsuario(id) {
 }
 
 // Função que exclui o usuário selecionado após confirmação do usuário.
-function excluirUsuario(id) {
+async function excluirUsuario(id) {
     const confirmar = confirm("Quer mesmo excluir este usuário?");
 
     if(!confirmar){
         return;
     }
     usuarios = usuarios.filter(user => user.id !== id);
+    await salvarJson();
     carregarUsuarios();
     alert("Usuário excluído com sucesso!");
+}
+
+async function carregarArquivoJson() {
+    try {
+        const [fileHandle] = await window.showOpenFilePicker ({
+            types: [{
+                description: "Arquivos JSON",
+                accept: {
+                    "application/json": [".json"]
+                }
+            }]
+
+        });
+        arquivoJson = fileHandle;
+
+        const file = await fileHandle.getFile();
+        const conteudo = await file.text();
+        const dados = JSON.parse(conteudo);
+
+        usuarios = dados.usuarios;
+
+        carregarUsuarios();
+
+        alert("Arquivo carregado com sucesso!");
+    } catch (erro) {
+        console.error(erro);
+        }
+}
+
+async function salvarJson() {
+    if (!arquivoJson) {
+        return;
+    }
+
+    const writable = await arquivoJson.createWritable();
+    const dados = {
+        usuarios: usuarios
+    };
+    await writable.write(JSON.stringify(dados, null, 4));
+    await writable.close();
 }
 
 // Função que limpa os campos de endereço do formulário.

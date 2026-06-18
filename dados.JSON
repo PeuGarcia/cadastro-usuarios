@@ -1,30 +1,30 @@
 {
     "usuarios": [
         {
-        "id": 1,
-        "nome": "João Silva",
-        "email": "joao.silva@example.com",
-        "cpf": "123.456.789-00",
-        "cep": "12345-678",
-        "rua": "Rua A",
-        "bairro": "Centro",
-        "cidade": "Salvador",
-        "estado": "BA"
+            "id": 1,
+            "nome": "João Silva",
+            "email": "joao.silva@example.com",
+            "cpf": "123.456.789-00",
+            "cep": "12345-678",
+            "rua": "Rua A",
+            "bairro": "Centro",
+            "cidade": "Salvador",
+            "estado": "BA"
         },
         {
-        "id": 2,
-        "nome": "Raquel Carneiro",
-        "email": "raquel.carneiro@example.com",
-        "cpf": "987.654.321-00",
-        "cep": "54321-876",
-        "rua": "Guilhard Muniz",
-        "bairro": "Pituba",
-        "cidade": "Salvador",
-        "estado": "Bahia"
+            "id": 2,
+            "nome": "Raquel Carneiro",
+            "email": "raquel.carneiro@example.com",
+            "cpf": "987.654.321-00",
+            "cep": "54321-876",
+            "rua": "Guilhard Muniz",
+            "bairro": "Pituba",
+            "cidade": "Salvador",
+            "estado": "Bahia"
         },
         {
             "id": 3,
-            "nome": "Pedro Garcia",
+            "nome": "Pedro Carneiro Garcia",
             "email": "pedro.garcia@example.com",
             "cpf": "859.009.755-25",
             "cep": "40081-305",
@@ -32,7 +32,17 @@
             "bairro": "Vitória",
             "cidade": "Salvador",
             "estado": "Bahia"
+        },
+        {
+            "id": 1781807366898,
+            "nome": "Pedro",
+            "email": "pedro@gmail.com",
+            "cpf": "372.135.010-38",
+            "cep": "40081-305",
+            "rua": "Largo da Vitória",
+            "bairro": "Vitória",
+            "cidade": "Salvador",
+            "estado": "BA"
         }
-
     ]
 }
