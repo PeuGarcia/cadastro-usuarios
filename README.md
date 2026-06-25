@@ -7,7 +7,6 @@ Desenvolvido utilizando HTML, CSS e Javascript puro.
 - CSS3
 - JavaScript
 - API ViaCEP
-- LocalStorage
 
 ## Como Executar 
 1. Clonar o repositório
@@ -31,6 +30,8 @@ git clone https://github.com/PeuGarcia/cadastro-usuarios.git
 
 - Visualização, edição e exclusão de usuários cadastrados
 - Busca automática de endereço por CEP através da API ViaCEP
+- Verifica se CPF é valido de acordo com o cálculo de CPF da receita federal.
+- Adiciona máscara ao CPF e CEP ao terminar de digitar todos os números.
 - Interface simples e responsiva
 - CRUD completo: 
     - Criar usuário
@@ -43,10 +44,13 @@ git clone https://github.com/PeuGarcia/cadastro-usuarios.git
 ```text
 cadastro-usuarios/
 │
+├── img
+├── dados.JSON
 ├── index.html
 ├── style.css
 ├── script.js
-|── README.md 
+├── README.md 
+
 ```
 
 ## API Utilizada

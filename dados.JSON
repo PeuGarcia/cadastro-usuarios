@@ -13,14 +13,14 @@
         },
         {
             "id": 2,
-            "nome": "Raquel Carneiro",
-            "email": "raquel.carneiro@example.com",
+            "nome": "Teste 1",
+            "email": "teste@example.com",
             "cpf": "987.654.321-00",
-            "cep": "54321-876",
-            "rua": "Guilhard Muniz",
-            "bairro": "Pituba",
+            "cep": "41610-650",
+            "rua": "Rua Santo Antônio de Itapuã",
+            "bairro": "Itapuã",
             "cidade": "Salvador",
-            "estado": "Bahia"
+            "estado": "BA"
         },
         {
             "id": 3,
@@ -32,17 +32,6 @@
             "bairro": "Vitória",
             "cidade": "Salvador",
             "estado": "Bahia"
-        },
-        {
-            "id": 1781807366898,
-            "nome": "Pedro",
-            "email": "pedro@gmail.com",
-            "cpf": "372.135.010-38",
-            "cep": "40081-305",
-            "rua": "Largo da Vitória",
-            "bairro": "Vitória",
-            "cidade": "Salvador",
-            "estado": "BA"
         }
     ]
 }
