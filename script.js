@@ -10,10 +10,6 @@ const botaoUsuarios = document.getElementById("botaoUsuarios");
 //Container que envolve a lista de usuários cadastrados.
 const usuariosContainer = document.getElementById("usuariosContainer");
 
-const botaoAbrirJson = document.getElementById("abrirJson");
-botaoAbrirJson.addEventListener("click", carregarArquivoJson);
-
-
 const cpfInput = document.getElementById("cpf");
 cpfInput.addEventListener("input", function() {
     let cpf = cpfInput.value.replace(/\D/g, "");
@@ -39,7 +35,8 @@ const cidadeInput = document.getElementById("cidade");
 const estadoInput = document.getElementById("estado");
 
 // Variável para armazenar o índice do usuário que está sendo editado. Se for null, significa que estamos criando um novo usuário.
-let arquivoJson = null;
+
+window.addEventListener("load", carregarUsuariosJson);
 let usuarioEditando = null;
 let usuarios = [];
 
@@ -83,7 +80,6 @@ cepInput.addEventListener("blur",async function() {
 formulario.addEventListener("submit", async function(event) {
     event.preventDefault();
     const usuario = {
-        id: usuarioEditando !== null ? usuarioEditando : Date.now(),
         nome: document.getElementById("nome").value,
         email: document.getElementById("email").value,
         cpf: document.getElementById("cpf").value,
@@ -93,7 +89,6 @@ formulario.addEventListener("submit", async function(event) {
         cidade: cidadeInput.value,
         estado: estadoInput.value
     };
-
 
     // Validação de nome
     if (usuario.nome.trim() === "") {
@@ -110,20 +105,21 @@ formulario.addEventListener("submit", async function(event) {
 
     function ValidarCPF(cpf) {
     cpf = cpf.replace(/\D/g, "");
+
     if (/^(\d)\1{10}$/.test(cpf)) return false;
         var soma;
         var resto;
         soma = 0;
     if (cpf == "00000000000") return false;
 
-    for (i=1; i<=9; i++) soma = soma + parseInt(cpf.substring(i-1, i)) * (11 - i);
+    for (let i=1; i<=9; i++) soma = soma + parseInt(cpf.substring(i-1, i)) * (11 - i);
     resto = (soma * 10) % 11;
 
         if ((resto == 10) || (resto == 11))  resto = 0;
         if (resto != parseInt(cpf.substring(9, 10)) ) return false;
 
     soma = 0;
-        for (i = 1; i <= 10; i++) soma = soma + parseInt(cpf.substring(i-1, i)) * (12 - i);
+        for (let i = 1; i <= 10; i++) soma = soma + parseInt(cpf.substring(i-1, i)) * (12 - i);
         resto = (soma * 10) % 11;
 
         if ((resto == 10) || (resto == 11)) resto = 0;
@@ -138,7 +134,7 @@ formulario.addEventListener("submit", async function(event) {
     }
 
     // Verifica se o CPF digitado já está sendo utilizado.
-    const cpfExistente = usuarios.some(function(usuarioSalvo, index) {
+    const cpfExistente = usuarios.some(function(usuarioSalvo) {
         if (usuarioSalvo.id === usuarioEditando) {
             return false;
         }
@@ -152,7 +148,7 @@ formulario.addEventListener("submit", async function(event) {
 
     // Verifica se o email digitado já está sendo utilizado.
     const emailDigitado = usuario.email.toLowerCase();
-    const emailExistente = usuarios.some(function(usuarioSalvo, index) {
+    const emailExistente = usuarios.some(function(usuarioSalvo) {
         // Permite que o usuário mantenha seu próprio email ao editar, mas impede que use um email de outro usuário.
         if (usuarioSalvo.id === usuarioEditando) {
             return false;
@@ -166,17 +162,40 @@ formulario.addEventListener("submit", async function(event) {
 
     // Atualiza o usuário existente ou adiciona um novo.
     if (usuarioEditando !== null) {
-        const indice = usuarios.findIndex(usuario => usuario.id === usuarioEditando);
-        usuarios[indice] = usuario;
-        await salvarJson();
-        usuarioEditando = null;
-    } else {
-        usuarios.push(usuario);
-        await salvarJson();
+        usuario.id = usuarioEditando;
 
+    const resposta = await fetch(`/usuarios/${usuarioEditando}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(usuario)
+        });
+
+        if (!resposta.ok) {
+            alert("Erro ao salvar usuário.")
+            return;
+        }
+
+        usuarioEditando = null;
+
+    } else {
+
+    const resposta = await fetch("/usuarios", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(usuario)
+        });
+
+        if (!resposta.ok) {
+            alert("Erro ao salvar usuário.")
+            return;
+        }
     }
     // Salva a lista de usuários atualizada e recarrega a exibição dos usuários.
-    carregarUsuarios();
+    await carregarUsuariosJson();
     formulario.reset();
     limparCampos();
     alert("Operação realizada com sucesso!");
@@ -241,50 +260,29 @@ async function excluirUsuario(id) {
     if(!confirmar){
         return;
     }
-    usuarios = usuarios.filter(user => user.id !== id);
-    await salvarJson();
-    carregarUsuarios();
-    alert("Usuário excluído com sucesso!");
-}
+    
+    const resposta = await fetch(`/usuarios/${id}`, {
+        method: "DELETE"
+    });
 
-async function carregarArquivoJson() {
-    try {
-        const [fileHandle] = await window.showOpenFilePicker ({
-            types: [{
-                description: "Arquivos JSON",
-                accept: {
-                    "application/json": [".json"]
-                }
-            }]
-
-        });
-        arquivoJson = fileHandle;
-
-        const file = await fileHandle.getFile();
-        const conteudo = await file.text();
-        const dados = JSON.parse(conteudo);
-
-        usuarios = dados.usuarios;
-
-        carregarUsuarios();
-
-        alert("Arquivo carregado com sucesso!");
-    } catch (erro) {
-        console.error(erro);
-        }
-}
-
-async function salvarJson() {
-    if (!arquivoJson) {
+    if(!resposta.ok) {
+        alert("Erro ao excluir usuário.")
         return;
     }
 
-    const writable = await arquivoJson.createWritable();
-    const dados = {
-        usuarios: usuarios
-    };
-    await writable.write(JSON.stringify(dados, null, 4));
-    await writable.close();
+    await carregarUsuariosJson();
+    alert("Usuário excluído com sucesso!");
+}
+
+async function carregarUsuariosJson() {
+    try {
+        const resposta = await fetch("/usuarios");
+        usuarios = await resposta.json();
+        carregarUsuarios();
+    }
+    catch(error){
+        console.error(error);
+    }
 }
 
 // Função que limpa os campos de endereço do formulário.
@@ -294,6 +292,4 @@ function limparCampos() {
     cidadeInput.value="";
     estadoInput.value=""; 
 }
-
-
 

@@ -1,0 +1,27 @@
+{
+  "name": "cadastro-usuarios",
+  "version": "1.0.0",
+  "description": "Desafio de cadastro de usuários. O projeto realiza cadastro, edição, exclusão e listagem de usuários, além de integração com a API ViaCEP para preenchimento automático de endereço através do CEP.\r Desenvolvido utilizando HTML, CSS e Javascript puro.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeuGarcia/cadastro-usuarios.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PeuGarcia/cadastro-usuarios/issues"
+  },
+  "homepage": "https://github.com/PeuGarcia/cadastro-usuarios#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

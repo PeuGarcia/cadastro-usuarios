@@ -12,17 +12,6 @@
             "estado": "BA"
         },
         {
-            "id": 2,
-            "nome": "Teste 1",
-            "email": "teste@example.com",
-            "cpf": "987.654.321-00",
-            "cep": "41610-650",
-            "rua": "Rua Santo Antônio de Itapuã",
-            "bairro": "Itapuã",
-            "cidade": "Salvador",
-            "estado": "BA"
-        },
-        {
             "id": 3,
             "nome": "Pedro Carneiro Garcia",
             "email": "pedro.garcia@example.com",
@@ -32,6 +21,17 @@
             "bairro": "Vitória",
             "cidade": "Salvador",
             "estado": "Bahia"
+        },
+        {
+            "nome": "teste novo usuario",
+            "email": "teste@example.com",
+            "cpf": "123.456.789-09",
+            "cep": "40081-305",
+            "rua": "Largo da Vitória",
+            "bairro": "Vitória",
+            "cidade": "Salvador",
+            "estado": "BA",
+            "id": 1782851532325
         }
     ]
 }
