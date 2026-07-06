@@ -173,7 +173,7 @@ formulario.addEventListener("submit", async function(event) {
         });
 
         if (!resposta.ok) {
-            alert("Erro ao salvar usuário.")
+            alert("Erro ao atualizar usuário.")
             return;
         }
 
@@ -216,7 +216,7 @@ botaoUsuarios.addEventListener("click", function() {
 // Função que carrega todos os usuários cadastrados e os exibe na tela.
 function carregarUsuarios() {
     listaUsuarios.innerHTML = "";
-    usuarios.forEach(function(usuario, index) {
+    usuarios.forEach(function(usuario) {
         const card = document.createElement("div");
         card.classList.add("usuario-card");
         card.innerHTML = `
@@ -277,11 +277,17 @@ async function excluirUsuario(id) {
 async function carregarUsuariosJson() {
     try {
         const resposta = await fetch("/usuarios");
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao carregar usuários.");
+        }
+
         usuarios = await resposta.json();
         carregarUsuarios();
     }
     catch(error){
         console.error(error);
+        alert("Erro ao carregar usuários.");
     }
 }
 

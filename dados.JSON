@@ -1,37 +1,26 @@
 {
     "usuarios": [
         {
-            "id": 1,
-            "nome": "João Silva",
-            "email": "joao.silva@example.com",
-            "cpf": "123.456.789-00",
-            "cep": "12345-678",
-            "rua": "Rua A",
-            "bairro": "Centro",
-            "cidade": "Salvador",
-            "estado": "BA"
-        },
-        {
-            "id": 3,
-            "nome": "Pedro Carneiro Garcia",
-            "email": "pedro.garcia@example.com",
+            "nome": "Pedro Carneiro Franco Garcia",
+            "email": "pedrogarcia4433@teste.com",
             "cpf": "859.009.755-25",
             "cep": "40081-305",
             "rua": "Largo da Vitória",
             "bairro": "Vitória",
             "cidade": "Salvador",
-            "estado": "Bahia"
+            "estado": "BA",
+            "id": 1
         },
         {
-            "nome": "teste novo usuario",
-            "email": "teste@example.com",
-            "cpf": "123.456.789-09",
-            "cep": "40081-305",
-            "rua": "Largo da Vitória",
-            "bairro": "Vitória",
+            "nome": "teste",
+            "email": "teste@teste.com",
+            "cpf": "989.603.625-06",
+            "cep": "41207-715",
+            "rua": "Avenida Sobral",
+            "bairro": "Beiru/ Tancredo Neves",
             "cidade": "Salvador",
             "estado": "BA",
-            "id": 1782851532325
+            "id": 2
         }
     ]
 }

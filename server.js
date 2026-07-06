@@ -13,7 +13,7 @@ const ARQUIVO = path.join(__dirname, 'dados.json');
 function lerDados() {
     try {
         const dados = fs.readFileSync(ARQUIVO, 'utf8');
-        return JSON.parse(dados).usuarios;
+        return JSON.parse(dados).usuarios || [];
     } catch (error) {
         return [];
     }
@@ -56,9 +56,11 @@ app.get('/usuarios/:id', (req, res) => {
 app.post('/usuarios', (req, res) => {
     const dados = lerDados();
 
+    const proximoId = dados.length > 0 ? Math.max(...dados.map(u => u.id)) + 1 : 1;
+
     const novoUsuario = {
         ...req.body,
-        id: Date.now()
+        id: proximoId
     };
 
     dados.push(novoUsuario);
