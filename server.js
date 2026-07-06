@@ -56,7 +56,11 @@ app.get('/usuarios/:id', (req, res) => {
 app.post('/usuarios', (req, res) => {
     const dados = lerDados();
 
-    const proximoId = dados.length > 0 ? Math.max(...dados.map(u => u.id)) + 1 : 1;
+    let proximoId = 1;
+
+    while (dados.some(usuario => usuario.id === proximoId)) {
+        proximoId++;
+    }
 
     const novoUsuario = {
         ...req.body,
