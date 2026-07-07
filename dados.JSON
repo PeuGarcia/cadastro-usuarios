@@ -10,50 +10,6 @@
             "cidade": "Salvador",
             "estado": "BA",
             "id": 1
-        },
-        {
-            "nome": "teste 2",
-            "email": "teste2@gmail.com",
-            "cpf": "843.134.125-49",
-            "cep": "41905-300",
-            "rua": "Travessa do Norte",
-            "bairro": "Nordeste de Amaralina",
-            "cidade": "Salvador",
-            "estado": "BA",
-            "id": 3
-        },
-        {
-            "nome": "teste 3",
-            "email": "teste3@gmail.com",
-            "cpf": "978.327.535-60",
-            "cep": "40230-305",
-            "rua": "Avenida da Bola",
-            "bairro": "Federação",
-            "cidade": "Salvador",
-            "estado": "BA",
-            "id": 4
-        },
-        {
-            "nome": "teste4",
-            "email": "teste4@gmail.com",
-            "cpf": "905.545.125-80",
-            "cep": "41100-045",
-            "rua": "Largo da Ventosa",
-            "bairro": "Pernambués",
-            "cidade": "Salvador",
-            "estado": "BA",
-            "id": 5
-        },
-        {
-            "nome": "teste5",
-            "email": "teste@gmail.com",
-            "cpf": "000.644.165-34",
-            "cep": "41100-150",
-            "rua": "Praça Francisco Manoel",
-            "bairro": "Pernambués",
-            "cidade": "Salvador",
-            "estado": "BA",
-            "id": 2
         }
     ]
 }
