@@ -1,5 +1,6 @@
 # Cadastro de Usuários
-Sistema de cadastro de usuários desenvolvido como projeto de estudo, utilizando **HTML5, CSS3, JavaScript** e **Node.js com Express**. A aplicação permite realizar operações completas de CRUD (Create, Read, Update e Delete), armazenando os dados em um arquivo JSON por meio de uma API REST desenvolvida no Express.
+Sistema de cadastro de usuários desenvolvido como projeto de estudo, utilizando **HTML5, CSS3, JavaScript** e **Node.js com Express**.  
+A aplicação permite realizar operações completas de CRUD (Create, Read, Update e Delete), armazenando os dados em um arquivo JSON por meio de uma API REST desenvolvida no Express.  
 Além disso, o sistema integra a API do ViaCEP para preenchimento automático do endereço a partir do CEP informado, tornando o cadastro mais rápido e intuitivo e um cálculo de validação de CPF de acordo com o algoritmo oficial de verificação.
 
 ## Funcionalidades

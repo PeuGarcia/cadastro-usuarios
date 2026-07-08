@@ -1,15 +1,26 @@
 {
     "usuarios": [
         {
-            "nome": "Pedro Carneiro Franco Garcia",
-            "email": "pedrogarcia4433@teste.com",
+            "id": 1,
+            "nome": "pedro",
+            "email": "pedro@teste.com",
             "cpf": "859.009.755-25",
             "cep": "40081-305",
             "rua": "Largo da Vitória",
             "bairro": "Vitória",
             "cidade": "Salvador",
-            "estado": "BA",
-            "id": 1
+            "estado": "BA"
+        },
+        {
+            "id": 2,
+            "nome": "teste 2",
+            "email": "teste2@gmail.com",
+            "cpf": "357.415.615-43",
+            "cep": "41341-560",
+            "rua": "Caminho 10-Quadra C",
+            "bairro": "Cajazeiras XI",
+            "cidade": "Salvador",
+            "estado": "BA"
         }
     ]
 }

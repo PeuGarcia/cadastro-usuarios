@@ -9,6 +9,16 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const ARQUIVO = path.join(__dirname, 'dados.json');
+const CAMPOS_PERMITIDOS = [
+    "nome",
+    "email",
+    "cpf",
+    "cep",
+    "rua",
+    "bairro",
+    "cidade",
+    "estado"
+];
 
 function lerDados() {
     try {
@@ -24,6 +34,15 @@ function salvarDados(dados) {
     null, 4),
     'utf8'
     );
+}
+
+function validarCampos(objeto) {
+    const camposRecebidos = Object.keys(objeto);
+
+    return camposRecebidos.every(campo => {
+        const valido = CAMPOS_PERMITIDOS.includes(campo);
+        return valido;
+    });
 }
 
 // READ - Listar todos
@@ -54,6 +73,15 @@ app.get('/usuarios/:id', (req, res) => {
 // POST /usuarios
 
 app.post('/usuarios', (req, res) => {
+    
+    delete req.body.id;
+
+    if (!validarCampos(req.body)) {
+        return res.status(400).json({
+            erro: "foram enviados campos inválidos"
+        });
+    }
+
     const dados = lerDados();
 
     let proximoId = 1;
@@ -63,8 +91,15 @@ app.post('/usuarios', (req, res) => {
     }
 
     const novoUsuario = {
-        ...req.body,
-        id: proximoId
+        id: proximoId,
+        nome: req.body.nome,
+        email: req.body.email,
+        cpf: req.body.cpf,
+        cep: req.body.cep,
+        rua: req.body.rua,
+        bairro: req.body.bairro,
+        cidade: req.body.cidade,
+        estado: req.body.estado
     };
 
     dados.push(novoUsuario);
@@ -77,6 +112,15 @@ app.post('/usuarios', (req, res) => {
 // PUT /usuarios/:id
 
 app.put('/usuarios/:id', (req, res) => {
+
+    delete req.body.id;
+
+    if (!validarCampos(req.body)) {
+        return res.status(400).json({
+            erro: "Foram enviados campos inválidos"
+        });
+    }
+
     const dados = lerDados();
 
     const indice = dados.findIndex(
